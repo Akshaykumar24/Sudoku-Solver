@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
+
 const Box = styled.div`
   width: 40px;
   font-size: 24px;
@@ -95,9 +96,6 @@ export default function Sudoku() {
   const [count, setCount] = useState(0);
 
   const slv = () => {
-    let h = setInterval(() => {
-      setPro(progress(sud));
-    }, 300);
     if (speed === undefined) {
       alert(`Set the Delay Speed
         0 Meaning without Delay
@@ -105,17 +103,18 @@ export default function Sudoku() {
       return;
     }
     solver(sud, speed);
-    clearInterval(h);
+    //clearInterval(h);
   };
 
-  useEffect(() => {
-    setPro(progress(sud));
-  }, [sud]);
+  // useEffect(() => {
+  //   setPro(progress(sud));
+  //   setSud(sud);
+  // }, [count]);
 
   ////////////////////////////////
 
   async function solver(sud, speed) {
-    //setSud(sud);
+    //setSud(sud)
     let x = blank(sud);
     if (x === false) {
       console.log(sud);
@@ -126,14 +125,17 @@ export default function Sudoku() {
       sud[a][b] = i;
       setCount((pr) => pr + 1);
       setSud(sud);
+
       let see = check(sud, a, b, i);
       if (see) {
         await sleep(speed);
 
         if (await solver(sud, speed)) {
+          setSud(sud);
+          setCount((pr) => pr + 1);
           return true;
         } else {
-          //await sleep(speed);
+          await sleep(speed);
           sud[a][b] = 0;
           setCount((pr) => pr + 1);
           setSud(sud);
@@ -146,13 +148,29 @@ export default function Sudoku() {
     }
     return false;
   }
+
+  function blank(sud) {
+    let g = 0;
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        g++;
+        if (sud[i][j] === 0) {
+          setPro(((g / 81) * 100).toFixed(2));
+          return [i, j];
+        }
+      }
+    }
+    return false;
+  }
+
   //   const show = () => {
   //     setCount((pr) => pr + 1);
   //   };
   const load = () => {
     let d = init(hard);
     setSud(d);
-    setPro(progress(sud));
+    // setPro(progress(sud));
+    console.log(pro);
     setCount((pr) => pr + 1);
   };
   const manual = () => {
@@ -178,7 +196,7 @@ export default function Sudoku() {
       return;
     }
     setSud(d);
-    setPro(progress(sud));
+    // setPro(progress(sud));
     setCount((pr) => pr + 1);
   };
   return (
@@ -250,17 +268,6 @@ function check(sud, r, c, n) {
     }
   }
   return true;
-}
-
-function blank(sud) {
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      if (sud[i][j] === 0) {
-        return [i, j];
-      }
-    }
-  }
-  return false;
 }
 
 function progress(sud) {
