@@ -252,6 +252,13 @@ export default function Sudoku() {
         <textarea type="text" value={input} />
         <textarea type="text" value={hard} />
       </Main>
+      <a href="https://github.com/Akshaykumar24/Sudoku-Solver">
+        <img
+          src="https://tse2.mm.bing.net/th?id=OIP.Qnpj8aU5VhwS5cw3WrSq_AHaHa&pid=Api&P=0&w=300&h=300"
+          alt=""
+          style={{ width: "50px", padding: "25px" }}
+        />
+      </a>
     </>
   );
 }
