@@ -80,7 +80,15 @@ const hard = `1 0 0 0 0 7 0 9 0
 3 0 0 0 0 0 0 1 0
 0 4 0 0 0 0 0 0 7
 0 0 7 0 0 0 3 0 0`;
-
+const easy = `0 7 0 0 1 4 0 0 0
+6 1 2 0 9 5 3 8 0
+3 0 4 0 6 8 9 7 1
+0 0 0 1 0 0 0 5 0
+2 8 0 0 0 0 7 0 3
+5 0 3 0 8 0 0 0 0
+0 2 0 0 3 0 0 0 0
+0 0 6 8 0 0 1 0 5
+0 0 0 6 7 0 4 3 0`;
 const init = (f) => {
   return f.split("\n").map((row) => {
     return row.trim().split(" ").map(Number);
@@ -89,7 +97,7 @@ const init = (f) => {
 };
 
 export default function Sudoku() {
-  const [sud, setSud] = useState(init(input));
+  const [sud, setSud] = useState(init(easy));
   const [man, setMan] = useState("");
   const [speed, setSpeed] = useState();
   const [pro, setPro] = useState(0);
@@ -238,6 +246,12 @@ export default function Sudoku() {
         </div>
         <But onClick={slv}>Solve</But>
       </ButFlx>
+      <h2>Sample Sudokus to Test</h2>
+      <Main>
+        <textarea type="text" value={easy} />
+        <textarea type="text" value={input} />
+        <textarea type="text" value={hard} />
+      </Main>
     </>
   );
 }
