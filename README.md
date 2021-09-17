@@ -10,7 +10,7 @@ See Demo Here : http://sudokume.vercel.app/
 
 - Open the git bash in yor system and run this command
 ```bash
-  git clone https://github.com/Akshaykumar24/Catapooolt.git
+  git clone https://github.com/Akshaykumar24/Sudoku-Solver.git
 ```
   
  - After cloning copy the project in existing  react app src folder then run this command    
